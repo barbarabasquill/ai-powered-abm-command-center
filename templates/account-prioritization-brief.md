@@ -32,3 +32,5 @@
 - Intent is a signal, not proof of an active buying project.
 - Separate observed facts from inferred needs.
 - Do not score accounts with unavailable data as though the signal were negative.
+
+##Sources of Segmentation
