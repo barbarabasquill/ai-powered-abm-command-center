@@ -9,7 +9,7 @@
 
 ## Why This Exists
 
-Enterprise ABM often breaks down between account selection, campaign execution, and Sales follow-through. This command center gives Marketing and Sales one structured workflow for turning account signals into coordinated, measurable plays.
+Enterprise ABM often breaks down between account selection, campaign execution, customer/account adoption, and Sales follow-through. This command center gives Marketing and Sales one structured workflow for turning account signals into coordinated, measurable plays.
 
 It is designed for complex AI, cloud, cybersecurity, and enterprise SaaS buying groups—without using confidential customer, employer, or pipeline data.
 
