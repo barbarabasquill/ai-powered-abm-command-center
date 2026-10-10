@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABX Architect | Generate Your Custom ABM/ABX Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-indigo-600">ABX<span class="text-slate-800">Architect</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#how-it-works" class="text-slate-600 hover:text-indigo-600 font-medium">How it Works</a>
+                    <a href="#generator" class="text-slate-600 hover:text-indigo-600 font-medium">Generator</a>
+                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-white py-20 lg:py-28">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+                Build a Winning <span class="text-indigo-600">ABM/ABX Plan</span> in Minutes.
+            </h1>
+            <p class="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+                Stop guessing. Input your target audience and goals, and our engine will generate a comprehensive, multi-channel Account-Based Experience strategy tailored to your business.
+            </p>
+            <a href="#generator" class="inline-block bg-indigo-600 text-white text-lg font-semibold px-8 py-4 rounded-xl shadow-lg hover:bg-indigo-700 hover:shadow-xl transition transform hover:-translate-y-1">
+                Generate My Free Plan →
+            </a>
+            <p class="mt-4 text-sm text-slate-500">No credit card required • Instant PDF-ready output</p>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-16 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">How It Works</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
+                    <h3 class="text-xl font-semibold mb-2">Define Your Target</h3>
+                    <p class="text-slate-600">Tell us about your ideal customer profile (ICP), industry, and average deal size.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
+                    <h3 class="text-xl font-semibold mb-2">Generate Strategy</h3>
+                    <p class="text-slate-600">Our engine builds a customized multi-channel engagement and personalization plan.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
+                    <h3 class="text-xl font-semibold mb-2">Execute & Scale</h3>
+                    <p class="text-slate-600">Download your blueprint, align your sales and marketing teams, and start closing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generator Section -->
+    <section id="generator" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 shadow-2xl text-white">
+                <h2 class="text-3xl font-bold mb-2 text-center">Generate Your ABX Blueprint</h2>
+                <p class="text-slate-400 text-center mb-8">Fill in the details below to get your customized strategy.</p>
+                
+                <form id="abxForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Your Company Name</label>
+                            <input type="text" id="companyName" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="e.g., Acme Corp">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Target Industry</label>
+                            <input type="text" id="targetIndustry" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="e.g., SaaS, FinTech, Healthcare">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Primary Goal</label>
+                            <select id="primaryGoal" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <option value="Pipeline Generation">Pipeline Generation</option>
+                                <option value="Enterprise Upsell/Cross-sell">Enterprise Upsell / Cross-sell</option>
+                                <option value="Brand Awareness in New Market">Brand Awareness in New Market</option>
+                                <option value="Shortening Sales Cycles">Shortening Sales Cycles</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Average Deal Size (ACV)</label>
+                            <select id="dealSize" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <option value="$10k - $50k">$10k - $50k</option>
+                                <option value="$50k - $100k">$50k - $100k</option>
+                                <option value="$100k+">$100k+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Key Decision Maker Persona</label>
+                        <input type="text" id="persona" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="e.g., VP of Sales, CTO, CMO">
+                    </div>
+
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2">
+                        <span>Generate ABX Plan</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                    </button>
+                </form>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden flex-col items-center justify-center py-12">
+                    <div class="loader mb-4"></div>
+                    <p class="text-slate-300 animate-pulse">Analyzing market data & building your ABX strategy...</p>
+                </div>
+
+                <!-- Results State -->
+                <div id="resultsState" class="hidden fade-in mt-8 bg-white text-slate-800 rounded-xl p-6 md:p-8">
+                    <div class="flex justify-between items-start mb-6 border-b border-slate-200 pb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900">ABX Strategy Blueprint</h3>
+                            <p class="text-slate-500 text-sm mt-1">Generated for <span id="resCompany" class="font-semibold text-indigo-600"></span></p>
+                        </div>
+                        <button onclick="window.print()" class="text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-md font-medium transition">🖨️ Print / Save PDF</button>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                            <h4 class="font-bold text-indigo-900 mb-2">🎯 Executive Summary</h4>
+                            <p id="execSummary" class="text-sm text-indigo-800 leading-relaxed"></p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-3 flex items-center"><span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span> Target Account Profile</h4>
+                                <ul id="targetProfile" class="space-y-2 text-sm text-slate-600"></ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-3 flex items-center"><span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span> Multi-Channel Playbook</h4>
+                                <ul id="channelPlaybook" class="space-y-2 text-sm text-slate-600"></ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-slate-900 mb-3 flex items-center"><span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">3</span> Personalization & ABX Tactics</h4>
+                            <div id="personalizationTactics" class="grid md:grid-cols-3 gap-4"></div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-900 mb-2">📊 Key Metrics to Track (KPIs)</h4>
+                            <div class="flex flex-wrap gap-2" id="kpiTags"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <button onclick="resetForm()" class="text-indigo-600 font-semibold hover:text-indigo-800 text-sm">← Generate Another Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-2xl font-bold text-white mb-4">ABX<span class="text-indigo-500">Architect</span></p>
+            <p class="text-sm">© 2026 ABX Architect. Built to help B2B teams scale with precision.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        document.getElementById('abxForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get values
+            const company = document.getElementById('companyName').value;
+            const industry = document.getElementById('targetIndustry').value;
+            const goal = document.getElementById('primaryGoal').value;
+            const dealSize = document.getElementById('dealSize').value;
+            const persona = document.getElementById('persona').value;
+
+            // UI Transition
+            document.getElementById('abxForm').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('loadingState').classList.add('flex');
+
+            // Simulate AI generation delay
+            setTimeout(() => {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('loadingState').classList.remove('flex');
+                document.getElementById('resultsState').classList.remove('hidden');
+
+                // Populate Results
+                document.getElementById('resCompany').textContent = company;
+                
+                document.getElementById('execSummary').textContent = 
+                    `To achieve ${goal} in the ${industry} sector, ${company} should deploy a highly targeted ABX strategy focusing on ${dealSize} opportunities. By aligning sales and marketing around the ${persona} persona, we will deliver hyper-personalized experiences across 3-4 touchpoints, reducing friction and accelerating deal velocity.`;
+
+                // Target Profile
+                const profileHTML = `
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Industry:</strong> ${industry}</li>
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Target Persona:</strong> ${persona}</li>
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Account Tier:</strong> Strategic ($100k+ ACV focus)</li>
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Buying Committee:</strong> ${persona}, IT/Security, Finance, End Users</li>
+                `;
+                document.getElementById('targetProfile').innerHTML = profileHTML;
+
+                // Channel Playbook
+                const playbookHTML = `
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>LinkedIn:</strong> Sponsored content targeting ${industry} job titles + Sales Nav outreach.</li>
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>Email:</strong> 3-part personalized sequence referencing recent company news/funding.</li>
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>Direct Mail:</strong> High-value "lumpy mail" (e.g., custom book or tech gadget) sent to top 50 accounts.</li>
+                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>Web:</strong> Customized landing pages (IP-targeted) with ${industry}-specific case studies.</li>
+                `;
+                document.getElementById('channelPlaybook').innerHTML = playbookHTML;
+
+                // Personalization Tactics
+                const tacticsHTML = `
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h5 class="font-semibold text-sm mb-1">1:1 Customization</h5>
+                        <p class="text-xs text-slate-600">Personalized video messages from your CEO to the target ${persona}.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h5 class="font-semibold text-sm mb-1">1:Few Customization</h5>
+                        <p class="text-xs text-slate-600">Industry-specific webinars and ${industry} benchmark reports.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h5 class="font-semibold text-sm mb-1">1:Many Customization</h5>
+                        <p class="text-xs text-slate-600">Retargeting ads based on website behavior and content consumption.</p>
+                    </div>
+                `;
+                document.getElementById('personalizationTactics').innerHTML = tacticsHTML;
+
+                // KPIs
+                const kpis = ["Account Engagement Score", "Pipeline Generated ($)", "Sales Cycle Length (Days)", "Meeting Booked Rate (%)", "Win Rate vs. Non-ABM"];
+                const kpiHTML = kpis.map(kpi => `<span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full">${kpi}</span>`).join('');
+                document.getElementById('kpiTags').innerHTML = kpiHTML;
+
+            }, 2000); // 2 second delay for realism
+        });
+
+        function resetForm() {
+            document.getElementById('abxForm').reset();
+            document.getElementById('resultsState').classList.add('hidden');
+            document.getElementById('abxForm').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
