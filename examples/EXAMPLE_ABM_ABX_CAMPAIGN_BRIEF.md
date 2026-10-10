@@ -1,4 +1,5 @@
 # Example ABM/ABX Campaign Brief
+[View the Executive PDF Example](EXAMPLE_ABM_ABX_CAMPAIGN_BRIEF.pdf)
 
 > **Illustrative example — fictional company.** The campaign strategy, company, goals, account cohorts, and budget allocations below are examples, not verified customer or pipeline data. This Markdown document is a GitHub-readable representation of the nine-page Word brief created through the five-input Claude Campaign Intake workflow. It is **not** a pixel-perfect substitute for the formatted Word/PDF output.
 
