@@ -9,7 +9,6 @@
 
 ## Campaign Brief Plug-and-Play Workflow: Five inputs → Campaign strategy → Executive Campaign Brief.
 An ABM/ABX Command Center Built in Claude can generate a fully customized campaign brief using the five-question intake process, using the ABM/ABX Artifact in Claude. The campaign brief covers your target cohorts, buying committee, offers, Sales & Marketing Plays, channel investment, measurement, and launch readiness. It also distinguishes proposed strategies from verified information, which is important for an executive deliverable.
-This is a major milestone for your plug-and-play workflow:
 
 ## Why This Exists
 
