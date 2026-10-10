@@ -1,181 +1,330 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABX Architect | Generate Your Custom ABM/ABX Plan</title>
+    <title>ABM/ABX Command Center | Afterglo</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        afterglo: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6', // Violet
+                            600: '#7c3aed',
+                            900: '#4c1d95',
+                            glow: '#f59e0b', // Amber glow accent
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .fade-in { animation: fadeIn 0.8s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4f46e5;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .glow-text {
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+        .gradient-border {
+            position: relative;
+            background: white;
+            border-radius: 0.75rem;
+        }
+        .gradient-border::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 0.85rem;
+            background: linear-gradient(135deg, #8b5cf6, #f59e0b);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gradient-border:hover::before {
+            opacity: 1;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800 antialiased">
 
     <!-- Navigation -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold text-indigo-600">ABX<span class="text-slate-800">Architect</span></span>
+    <nav class="fixed w-full z-50 glass-panel border-b border-slate-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-afterglo-500 to-afterglo-glow flex items-center justify-center text-white font-bold text-lg">A</div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Afterglo <span class="text-afterglo-600 font-medium">ABX Command Center</span></span>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#how-it-works" class="text-slate-600 hover:text-indigo-600 font-medium">How it Works</a>
-                    <a href="#generator" class="text-slate-600 hover:text-indigo-600 font-medium">Generator</a>
-                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition">Get Started</a>
+                    <a href="#workflow" class="text-slate-600 hover:text-afterglo-600 font-medium transition">Workflow</a>
+                    <a href="#generator" class="text-slate-600 hover:text-afterglo-600 font-medium transition">Campaign Generator</a>
+                    <a href="#templates" class="text-slate-600 hover:text-afterglo-600 font-medium transition">Templates</a>
                 </div>
+                <button onclick="document.getElementById('generator').scrollIntoView({behavior: 'smooth'})" class="bg-slate-900 text-white px-5 py-2 rounded-full font-medium hover:bg-afterglo-600 transition shadow-lg shadow-afterglo-500/20">
+                    Launch Command Center
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="bg-white py-20 lg:py-28">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-                Build a Winning <span class="text-indigo-600">ABM/ABX Plan</span> in Minutes.
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-afterglo-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-[800px] h-[600px] bg-afterglo-glow/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-afterglo-50 border border-afterglo-100 text-afterglo-600 font-medium text-sm mb-8 animate-fade-in">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                AI-Powered Operating System for Enterprise ABM
+            </div>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-6 animate-slide-up">
+                Design, Activate & Measure <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-afterglo-600 to-afterglo-glow glow-text">1:1 & 1:Few ABX Programs</span>
             </h1>
-            <p class="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
-                Stop guessing. Input your target audience and goals, and our engine will generate a comprehensive, multi-channel Account-Based Experience strategy tailored to your business.
+            <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed animate-slide-up" style="animation-delay: 0.1s;">
+                The Afterglo Command Center aligns Marketing, BDR, AE, and Customer Success with AI-assisted research, intent-led orchestration, and precise pipeline measurement.
             </p>
-            <a href="#generator" class="inline-block bg-indigo-600 text-white text-lg font-semibold px-8 py-4 rounded-xl shadow-lg hover:bg-indigo-700 hover:shadow-xl transition transform hover:-translate-y-1">
-                Generate My Free Plan →
-            </a>
-            <p class="mt-4 text-sm text-slate-500">No credit card required • Instant PDF-ready output</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.2s;">
+                <button onclick="document.getElementById('generator').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-slate-900 text-white rounded-xl font-semibold hover:bg-afterglo-600 transition shadow-xl shadow-afterglo-500/20 flex items-center justify-center gap-2">
+                    Build a Campaign <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+                <button onclick="document.getElementById('workflow').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-semibold hover:border-afterglo-500 hover:text-afterglo-600 transition flex items-center justify-center gap-2">
+                    View Workflow <i data-lucide="play-circle" class="w-5 h-5"></i>
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works" class="py-16 bg-slate-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">How It Works</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
-                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
-                    <h3 class="text-xl font-semibold mb-2">Define Your Target</h3>
-                    <p class="text-slate-600">Tell us about your ideal customer profile (ICP), industry, and average deal size.</p>
+    <!-- Workflow Section -->
+    <section id="workflow" class="py-20 bg-white border-y border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Command Center Workflow</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">A systematic, 7-step approach to transforming raw account data into activated, measurable revenue pipelines.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="gradient-border p-6 hover:shadow-xl transition duration-300 group cursor-pointer" onclick="showStepDetail(1)">
+                    <div class="w-12 h-12 rounded-lg bg-afterglo-50 text-afterglo-600 flex items-center justify-center mb-4 group-hover:bg-afterglo-600 group-hover:text-white transition">
+                        <i data-lucide="database" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">1. Account Inputs</h3>
+                    <p class="text-sm text-slate-500">ICP, target lists, business objectives, and available signals.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
-                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
-                    <h3 class="text-xl font-semibold mb-2">Generate Strategy</h3>
-                    <p class="text-slate-600">Our engine builds a customized multi-channel engagement and personalization plan.</p>
+                <!-- Step 2 -->
+                <div class="gradient-border p-6 hover:shadow-xl transition duration-300 group cursor-pointer" onclick="showStepDetail(2)">
+                    <div class="w-12 h-12 rounded-lg bg-afterglo-50 text-afterglo-600 flex items-center justify-center mb-4 group-hover:bg-afterglo-600 group-hover:text-white transition">
+                        <i data-lucide="filter" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">2. Prioritize & Tier</h3>
+                    <p class="text-sm text-slate-500">Score accounts based on fit, intent, engagement, and opportunity.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
-                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
-                    <h3 class="text-xl font-semibold mb-2">Execute & Scale</h3>
-                    <p class="text-slate-600">Download your blueprint, align your sales and marketing teams, and start closing.</p>
+                <!-- Step 3 -->
+                <div class="gradient-border p-6 hover:shadow-xl transition duration-300 group cursor-pointer" onclick="showStepDetail(3)">
+                    <div class="w-12 h-12 rounded-lg bg-afterglo-50 text-afterglo-600 flex items-center justify-center mb-4 group-hover:bg-afterglo-600 group-hover:text-white transition">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">3. Map Buying Group</h3>
+                    <p class="text-sm text-slate-500">Identify roles, personas, and known contacts within target accounts.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="gradient-border p-6 hover:shadow-xl transition duration-300 group cursor-pointer" onclick="showStepDetail(4)">
+                    <div class="w-12 h-12 rounded-lg bg-afterglo-50 text-afterglo-600 flex items-center justify-center mb-4 group-hover:bg-afterglo-600 group-hover:text-white transition">
+                        <i data-lucide="radio" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">4. Select Signals & Plays</h3>
+                    <p class="text-sm text-slate-500">Orchestrate 1:1 or 1:few campaigns using first/third-party intent.</p>
+                </div>
+                <!-- Step 5 -->
+                <div class="gradient-border p-6 hover:shadow-xl transition duration-300 group cursor-pointer" onclick="showStepDetail(5)">
+                    <div class="w-12 h-12 rounded-lg bg-afterglo-50 text-afterglo-600 flex items-center justify-center mb-4 group-hover:bg-afterglo-600 group-hover:text-white transition">
+                        <i data-lucide="file-text" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">5. Create Assets</h3>
+                    <p class="text-sm text-slate-500">AI-assisted personalization and content development for the account.</p>
+                </div>
+                <!-- Step 6 -->
+                <div class="gradient-border p-6 hover:shadow-xl transition duration-300 group cursor-pointer" onclick="showStepDetail(6)">
+                    <div class="w-12 h-12 rounded-lg bg-afterglo-50 text-afterglo-600 flex items-center justify-center mb-4 group-hover:bg-afterglo-600 group-hover:text-white transition">
+                        <i data-lucide="rocket" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">6. Activate</h3>
+                    <p class="text-sm text-slate-500">Coordinated execution across Marketing, BDR, AE, and Partners.</p>
+                </div>
+                <!-- Step 7 -->
+                <div class="gradient-border p-6 hover:shadow-xl transition duration-300 group cursor-pointer md:col-span-2 lg:col-span-2" onclick="showStepDetail(7)">
+                    <div class="w-12 h-12 rounded-lg bg-afterglo-50 text-afterglo-600 flex items-center justify-center mb-4 group-hover:bg-afterglo-600 group-hover:text-white transition">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">7. Measure & Optimize</h3>
+                    <p class="text-sm text-slate-500">Track account progression, pipeline influence, and executive reporting cadence.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Generator Section -->
-    <section id="generator" class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 shadow-2xl text-white">
-                <h2 class="text-3xl font-bold mb-2 text-center">Generate Your ABX Blueprint</h2>
-                <p class="text-slate-400 text-center mb-8">Fill in the details below to get your customized strategy.</p>
-                
-                <form id="abxForm" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
+    <!-- Interactive Campaign Generator -->
+    <section id="generator" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Interactive Campaign Generator</h2>
+                <p class="text-slate-600">Input your account context below to generate a structured, AI-ready ABM Campaign Brief.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Input Form -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <i data-lucide="settings-2" class="w-5 h-5 text-afterglo-600"></i> Command Inputs
+                    </h3>
+                    <form id="abmForm" class="space-y-5" onsubmit="generateCampaign(event)">
                         <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">Your Company Name</label>
-                            <input type="text" id="companyName" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="e.g., Acme Corp">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Business Objective & Offer</label>
+                            <input type="text" id="objective" placeholder="e.g., Drive 5 demos for new Cloud Security Platform" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-afterglo-500 focus:border-afterglo-500 outline-none transition" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">Target Industry</label>
-                            <input type="text" id="targetIndustry" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="e.g., SaaS, FinTech, Healthcare">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Target Account Profile (ICP)</label>
+                            <input type="text" id="icp" placeholder="e.g., 12 Enterprise Financial Services, $1B+ revenue" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-afterglo-500 focus:border-afterglo-500 outline-none transition" required>
                         </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">Primary Goal</label>
-                            <select id="primaryGoal" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
-                                <option value="Pipeline Generation">Pipeline Generation</option>
-                                <option value="Enterprise Upsell/Cross-sell">Enterprise Upsell / Cross-sell</option>
-                                <option value="Brand Awareness in New Market">Brand Awareness in New Market</option>
-                                <option value="Shortening Sales Cycles">Shortening Sales Cycles</option>
-                            </select>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Key Buying Roles</label>
+                                <input type="text" id="roles" placeholder="e.g., CISO, VP Infrastructure" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-afterglo-500 focus:border-afterglo-500 outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Intent Signals</label>
+                                <input type="text" id="signals" placeholder="e.g., 3rd-party intent spike, recent breach" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-afterglo-500 focus:border-afterglo-500 outline-none transition">
+                            </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">Average Deal Size (ACV)</label>
-                            <select id="dealSize" class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
-                                <option value="$10k - $50k">$10k - $50k</option>
-                                <option value="$50k - $100k">$50k - $100k</option>
-                                <option value="$100k+">$100k+</option>
-                            </select>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Available Channels & Budget</label>
+                            <input type="text" id="channels" placeholder="e.g., LinkedIn, Direct Mail, Executive Dinner, $15k" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-afterglo-500 focus:border-afterglo-500 outline-none transition">
                         </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">Key Decision Maker Persona</label>
-                        <input type="text" id="persona" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none" placeholder="e.g., VP of Sales, CTO, CMO">
-                    </div>
-
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2">
-                        <span>Generate ABX Plan</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                    </button>
-                </form>
-
-                <!-- Loading State -->
-                <div id="loadingState" class="hidden flex-col items-center justify-center py-12">
-                    <div class="loader mb-4"></div>
-                    <p class="text-slate-300 animate-pulse">Analyzing market data & building your ABX strategy...</p>
+                        <button type="submit" id="generateBtn" class="w-full py-3 bg-gradient-to-r from-afterglo-600 to-afterglo-500 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-afterglo-500/30 transition flex items-center justify-center gap-2">
+                            <i data-lucide="wand-2" class="w-5 h-5"></i> Generate Campaign Brief
+                        </button>
+                    </form>
                 </div>
 
-                <!-- Results State -->
-                <div id="resultsState" class="hidden fade-in mt-8 bg-white text-slate-800 rounded-xl p-6 md:p-8">
-                    <div class="flex justify-between items-start mb-6 border-b border-slate-200 pb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold text-slate-900">ABX Strategy Blueprint</h3>
-                            <p class="text-slate-500 text-sm mt-1">Generated for <span id="resCompany" class="font-semibold text-indigo-600"></span></p>
+                <!-- Output Area -->
+                <div class="bg-slate-900 p-8 rounded-2xl shadow-xl text-slate-100 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-afterglo-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold flex items-center gap-2">
+                                <i data-lucide="file-output" class="w-5 h-5 text-afterglo-glow"></i> Generated Brief
+                            </h3>
+                            <button onclick="copyToClipboard()" id="copyBtn" class="text-sm text-slate-400 hover:text-white flex items-center gap-1 transition">
+                                <i data-lucide="copy" class="w-4 h-4"></i> Copy
+                            </button>
                         </div>
-                        <button onclick="window.print()" class="text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-md font-medium transition">🖨️ Print / Save PDF</button>
-                    </div>
-
-                    <div class="space-y-6">
-                        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
-                            <h4 class="font-bold text-indigo-900 mb-2">🎯 Executive Summary</h4>
-                            <p id="execSummary" class="text-sm text-indigo-800 leading-relaxed"></p>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-3 flex items-center"><span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span> Target Account Profile</h4>
-                                <ul id="targetProfile" class="space-y-2 text-sm text-slate-600"></ul>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-3 flex items-center"><span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span> Multi-Channel Playbook</h4>
-                                <ul id="channelPlaybook" class="space-y-2 text-sm text-slate-600"></ul>
-                            </div>
+                        
+                        <div id="outputPlaceholder" class="text-center py-20 text-slate-500">
+                            <i data-lucide="cpu" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                            <p>Fill out the inputs and click generate to see the AI-powered ABM architecture.</p>
                         </div>
 
-                        <div>
-                            <h4 class="font-bold text-slate-900 mb-3 flex items-center"><span class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">3</span> Personalization & ABX Tactics</h4>
-                            <div id="personalizationTactics" class="grid md:grid-cols-3 gap-4"></div>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-slate-900 mb-2">📊 Key Metrics to Track (KPIs)</h4>
-                            <div class="flex flex-wrap gap-2" id="kpiTags"></div>
+                        <div id="outputContent" class="hidden space-y-4 font-mono text-sm leading-relaxed">
+                            <!-- Content injected via JS -->
                         </div>
                     </div>
-                    
-                    <div class="mt-8 text-center">
-                        <button onclick="resetForm()" class="text-indigo-600 font-semibold hover:text-indigo-800 text-sm">← Generate Another Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Library -->
+    <section id="templates" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Command Center Templates</h2>
+                <p class="text-slate-600">Pre-built, Claude-compatible frameworks ready for your next enterprise campaign.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Template Cards -->
+                <div class="p-6 rounded-xl border border-slate-200 hover:border-afterglo-500 hover:shadow-lg transition cursor-pointer group" onclick="showTemplate('prioritization')">
+                    <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
+                        <i data-lucide="target" class="w-5 h-5"></i>
                     </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Account Prioritization Brief</h3>
+                    <p class="text-sm text-slate-500">ICP, fit, intent, engagement, and opportunity scoring matrix.</p>
+                </div>
+
+                <div class="p-6 rounded-xl border border-slate-200 hover:border-afterglo-500 hover:shadow-lg transition cursor-pointer group" onclick="showTemplate('campaign')">
+                    <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:bg-purple-600 group-hover:text-white transition">
+                        <i data-lucide="layout-template" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">ABM Campaign Brief</h3>
+                    <p class="text-sm text-slate-500">Full campaign architecture for 1:1 or 1:few programs.</p>
+                </div>
+
+                <div class="p-6 rounded-xl border border-slate-200 hover:border-afterglo-500 hover:shadow-lg transition cursor-pointer group" onclick="showTemplate('alignment')">
+                    <div class="w-10 h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center mb-4 group-hover:bg-green-600 group-hover:text-white transition">
+                        <i data-lucide="handshake" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Sales Alignment Brief</h3>
+                    <p class="text-sm text-slate-500">Shared Marketing, BDR, and Sales activation plan.</p>
+                </div>
+
+                <div class="p-6 rounded-xl border border-slate-200 hover:border-afterglo-500 hover:shadow-lg transition cursor-pointer group" onclick="showTemplate('measurement')">
+                    <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center mb-4 group-hover:bg-amber-600 group-hover:text-white transition">
+                        <i data-lucide="line-chart" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Measurement Scorecard</h3>
+                    <p class="text-sm text-slate-500">Account progression and pipeline measurement framework.</p>
+                </div>
+
+                <div class="p-6 rounded-xl border border-slate-200 hover:border-afterglo-500 hover:shadow-lg transition cursor-pointer group" onclick="showTemplate('example')">
+                    <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center mb-4 group-hover:bg-rose-600 group-hover:text-white transition">
+                        <i data-lucide="shield" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Cloud Security Example</h3>
+                    <p class="text-sm text-slate-500">Completed, fictional enterprise cybersecurity campaign example.</p>
+                </div>
+
+                <div class="p-6 rounded-xl border border-slate-200 hover:border-afterglo-500 hover:shadow-lg transition cursor-pointer group" onclick="showTemplate('skill')">
+                    <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center mb-4 group-hover:bg-slate-600 group-hover:text-white transition">
+                        <i data-lucide="bot" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">AI Command Center Skill</h3>
+                    <p class="text-sm text-slate-500">Claude-compatible instructions for generating ABM strategy.</p>
                 </div>
             </div>
         </div>
@@ -183,89 +332,211 @@
 
     <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <p class="text-2xl font-bold text-white mb-4">ABX<span class="text-indigo-500">Architect</span></p>
-            <p class="text-sm">© 2026 ABX Architect. Built to help B2B teams scale with precision.</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-afterglo-500 to-afterglo-glow flex items-center justify-center text-white font-bold">A</div>
+                <span class="text-white font-bold text-lg">Afterglo</span>
+            </div>
+            <p class="text-sm">© 2026 Afterglo. AI-Powered ABM/ABX Command Center. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="https://github.com/barbarabasquill/ai-powered-abm-command-center" target="_blank" class="hover:text-white transition flex items-center gap-2">
+                    <i data-lucide="github" class="w-5 h-5"></i> View on GitHub
+                </a>
+            </div>
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- Modal for Templates/Steps -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl p-4">
+            <div class="bg-white rounded-2xl shadow-2xl p-8 max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 id="modalTitle" class="text-2xl font-bold text-slate-900"></h3>
+                    <button onclick="closeModal()" class="p-2 hover:bg-slate-100 rounded-full transition">
+                        <i data-lucide="x" class="w-6 h-6 text-slate-500"></i>
+                    </button>
+                </div>
+                <div id="modalContent" class="prose prose-slate max-w-none"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('abxForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get values
-            const company = document.getElementById('companyName').value;
-            const industry = document.getElementById('targetIndustry').value;
-            const goal = document.getElementById('primaryGoal').value;
-            const dealSize = document.getElementById('dealSize').value;
-            const persona = document.getElementById('persona').value;
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-            // UI Transition
-            document.getElementById('abxForm').classList.add('hidden');
-            document.getElementById('loadingState').classList.remove('hidden');
-            document.getElementById('loadingState').classList.add('flex');
+        // Modal Data
+        const modalData = {
+            'prioritization': {
+                title: 'Account Prioritization Brief',
+                content: `<ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Fit Score (1-10):</strong> Alignment with ICP (Revenue, Industry, Tech Stack).</li>
+                    <li><strong>Intent Score (1-10):</strong> 3rd-party intent data (e.g., G2, Bombora) and 1st-party web engagement.</li>
+                    <li><strong>Engagement Score (1-10):</strong> Historical interactions with marketing/sales.</li>
+                    <li><strong>Opportunity Context:</strong> Current pipeline stage, recent funding, leadership changes.</li>
+                    <li><strong>Output:</strong> Tier 1 (1:1), Tier 2 (1:Few), Tier 3 (1:Many) classification.</li>
+                </ul>`
+            },
+            'campaign': {
+                title: 'ABM Campaign Brief',
+                content: `<ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Account Thesis:</strong> Why this account? Why now?</li>
+                    <li><strong>Buying Group Map:</strong> Economic Buyer, Champion, End Users, Blockers.</li>
+                    <li><strong>Message Architecture:</strong> Core value prop tailored to each persona.</li>
+                    <li><strong>Coordinated Plays:</strong> Specific actions for Marketing, BDR, and AE.</li>
+                    <li><strong>Asset Plan:</strong> Required personalized content (e.g., custom landing page, video).</li>
+                    <li><strong>Timeline:</strong> 30-60-90 day activation schedule.</li>
+                </ul>`
+            },
+            'alignment': {
+                title: 'Sales Alignment Brief',
+                content: `<ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Shared Goals:</strong> Unified definition of success (e.g., 5 meetings booked).</li>
+                    <li><strong>BDR Playbook:</strong> Call scripts, email sequences, and social touchpoints.</li>
+                    <li><strong>AE Playbook:</strong> Executive outreach strategy and discovery framework.</li>
+                    <li><strong>Marketing Support:</strong> SLA for asset delivery and ad budget allocation.</li>
+                    <li><strong>Cadence:</strong> Weekly syncs to review account engagement and pivot tactics.</li>
+                </ul>`
+            },
+            'measurement': {
+                title: 'Measurement Scorecard',
+                content: `<ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Leading Indicators:</strong> Account engagement score, meeting conversion rate, content consumption.</li>
+                    <li><strong>Lagging Indicators:</strong> Pipeline generated, pipeline velocity, closed-won revenue.</li>
+                    <li><strong>Attribution:</strong> Multi-touch attribution model for ABM-specific touches.</li>
+                    <li><strong>Reporting:</strong> Monthly executive dashboard reviewing Tier 1 account progression.</li>
+                </ul>`
+            },
+            'example': {
+                title: 'Sanitized Cloud Security Example',
+                content: `<p class="mb-4">A fictional but realistic example of a 1:few campaign for 12 enterprise financial-services accounts evaluating cloud security platforms.</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Thesis:</strong> Recent regulatory shifts require upgraded cloud posture management.</li>
+                    <li><strong>Play:</strong> "Secure the Cloud" executive dinner series + personalized ROI calculator.</li>
+                    <li><strong>Result:</strong> 4 meetings booked, 2 opportunities created, $1.2M pipeline influenced.</li>
+                </ul>`
+            },
+            'skill': {
+                title: 'AI Command Center Skill (SKILL.md)',
+                content: `<p class="mb-4">Claude-compatible system instructions for generating ABM strategy.</p>
+                <pre class="bg-slate-100 p-4 rounded-lg text-sm overflow-x-auto"><code>You are an expert ABM/ABX Strategist. Your goal is to design, activate, and measure enterprise 1:1 and 1:few account-based marketing programs. 
+Always request: 1) Business objective, 2) ICP, 3) Tier criteria, 4) Buying-group roles, 5) Intent signals, 6) Sales stage, 7) Channels/budget, 8) Success metrics.
+Clearly label all assumptions and do not invent account facts. Output structured briefs using the provided templates.</code></pre>`
+            },
+            'step1': { title: '1. Account Inputs', content: 'Gather all available data: Business objectives, ICP definitions, target account lists, and any known first-party or third-party signals. Label any assumptions clearly.' },
+            'step2': { title: '2. Prioritize & Tier', content: 'Apply a scoring model based on Fit (ICP alignment), Intent (buying signals), Engagement (past interactions), and Opportunity (current sales context) to categorize accounts into Tier 1 (1:1), Tier 2 (1:Few), or Tier 3 (1:Many).' },
+            'step3': { title: '3. Map Buying Group', content: 'Identify and map the 6-10 key stakeholders within the target account. Define their roles: Economic Buyer, Champion, Technical Evaluator, End User, and potential Blockers.' },
+            'step4': { title: '4. Select Signals & Plays', content: 'Choose the right orchestration plays based on triggers. E.g., If intent spikes, trigger a BDR outreach sequence paired with targeted display ads.' },
+            'step5': { title: '5. Create Personalized Assets', content: 'Leverage AI to develop account-specific content: custom landing pages, personalized video messages, tailored ROI calculators, and relevant case studies.' },
+            'step6': { title: '6. Activate Marketing & Sales', content: 'Execute the coordinated plan. Ensure Marketing, BDR, AE, and Partners are aligned on the timeline, messaging, and handoff processes.' },
+            'step7': { title: '7. Measure & Optimize', content: 'Track leading indicators (engagement, meetings) and lagging indicators (pipeline, revenue). Review weekly and optimize plays based on what is working.' }
+        };
 
-            // Simulate AI generation delay
-            setTimeout(() => {
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('loadingState').classList.remove('flex');
-                document.getElementById('resultsState').classList.remove('hidden');
-
-                // Populate Results
-                document.getElementById('resCompany').textContent = company;
-                
-                document.getElementById('execSummary').textContent = 
-                    `To achieve ${goal} in the ${industry} sector, ${company} should deploy a highly targeted ABX strategy focusing on ${dealSize} opportunities. By aligning sales and marketing around the ${persona} persona, we will deliver hyper-personalized experiences across 3-4 touchpoints, reducing friction and accelerating deal velocity.`;
-
-                // Target Profile
-                const profileHTML = `
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Industry:</strong> ${industry}</li>
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Target Persona:</strong> ${persona}</li>
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Account Tier:</strong> Strategic ($100k+ ACV focus)</li>
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">✓</span> <strong>Buying Committee:</strong> ${persona}, IT/Security, Finance, End Users</li>
-                `;
-                document.getElementById('targetProfile').innerHTML = profileHTML;
-
-                // Channel Playbook
-                const playbookHTML = `
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>LinkedIn:</strong> Sponsored content targeting ${industry} job titles + Sales Nav outreach.</li>
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>Email:</strong> 3-part personalized sequence referencing recent company news/funding.</li>
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>Direct Mail:</strong> High-value "lumpy mail" (e.g., custom book or tech gadget) sent to top 50 accounts.</li>
-                    <li class="flex items-start"><span class="text-indigo-600 mr-2">➜</span> <strong>Web:</strong> Customized landing pages (IP-targeted) with ${industry}-specific case studies.</li>
-                `;
-                document.getElementById('channelPlaybook').innerHTML = playbookHTML;
-
-                // Personalization Tactics
-                const tacticsHTML = `
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <h5 class="font-semibold text-sm mb-1">1:1 Customization</h5>
-                        <p class="text-xs text-slate-600">Personalized video messages from your CEO to the target ${persona}.</p>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <h5 class="font-semibold text-sm mb-1">1:Few Customization</h5>
-                        <p class="text-xs text-slate-600">Industry-specific webinars and ${industry} benchmark reports.</p>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <h5 class="font-semibold text-sm mb-1">1:Many Customization</h5>
-                        <p class="text-xs text-slate-600">Retargeting ads based on website behavior and content consumption.</p>
-                    </div>
-                `;
-                document.getElementById('personalizationTactics').innerHTML = tacticsHTML;
-
-                // KPIs
-                const kpis = ["Account Engagement Score", "Pipeline Generated ($)", "Sales Cycle Length (Days)", "Meeting Booked Rate (%)", "Win Rate vs. Non-ABM"];
-                const kpiHTML = kpis.map(kpi => `<span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full">${kpi}</span>`).join('');
-                document.getElementById('kpiTags').innerHTML = kpiHTML;
-
-            }, 2000); // 2 second delay for realism
-        });
-
-        function resetForm() {
-            document.getElementById('abxForm').reset();
-            document.getElementById('resultsState').classList.add('hidden');
-            document.getElementById('abxForm').classList.remove('hidden');
+        function showTemplate(key) {
+            document.getElementById('modalTitle').innerText = modalData[key].title;
+            document.getElementById('modalContent').innerHTML = modalData[key].content;
+            document.getElementById('modal').classList.remove('hidden');
         }
+
+        function showStepDetail(stepNum) {
+            const key = 'step' + stepNum;
+            document.getElementById('modalTitle').innerText = modalData[key].title;
+            document.getElementById('modalContent').innerHTML = `<p class="text-lg text-slate-600 leading-relaxed">${modalData[key].content}</p>`;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Campaign Generator Logic
+        function generateCampaign(e) {
+            e.preventDefault();
+            const btn = document.getElementById('generateBtn');
+            const originalText = btn.innerHTML;
+            
+            // Loading state
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Generating Strategy...`;
+            btn.disabled = true;
+            lucide.createIcons();
+
+            const objective = document.getElementById('objective').value;
+            const icp = document.getElementById('icp').value;
+            const roles = document.getElementById('roles').value || 'Not specified';
+            const signals = document.getElementById('signals').value || 'Not specified';
+            const channels = document.getElementById('channels').value || 'Not specified';
+
+            setTimeout(() => {
+                const output = `
+                    <div class="border-l-2 border-afterglo-glow pl-4 mb-4">
+                        <h4 class="text-afterglo-glow font-bold uppercase text-xs tracking-wider mb-1">Account Thesis</h4>
+                        <p>Targeting ${icp} to achieve: ${objective}. Leveraging ${signals} to drive urgency.</p>
+                    </div>
+                    <div class="border-l-2 border-afterglo-500 pl-4 mb-4">
+                        <h4 class="text-afterglo-500 font-bold uppercase text-xs tracking-wider mb-1">Buying Group Focus</h4>
+                        <p>Primary: ${roles}. Messaging will focus on risk mitigation and ROI acceleration.</p>
+                    </div>
+                    <div class="border-l-2 border-blue-500 pl-4 mb-4">
+                        <h4 class="text-blue-400 font-bold uppercase text-xs tracking-wider mb-1">Coordinated Plays (1:Few)</h4>
+                        <ul class="list-disc pl-4 space-y-1 text-slate-300">
+                            <li><strong>Marketing:</strong> Launch targeted LinkedIn ads + custom landing page for this segment.</li>
+                            <li><strong>BDR:</strong> Execute 3-step email sequence referencing ${signals}.</li>
+                            <li><strong>AE:</strong> Send personalized Loom video to Economic Buyer with relevant case study.</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-2 border-green-500 pl-4">
+                        <h4 class="text-green-400 font-bold uppercase text-xs tracking-wider mb-1">Measurement & Channels</h4>
+                        <p><strong>Channels:</strong> ${channels}</p>
+                        <p><strong>Success Metric:</strong> 5 qualified meetings booked within 45 days. Weekly pipeline review.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700 text-xs text-slate-500 italic">
+                        * Assumptions labeled. Generated by Afterglo ABX Command Center framework.
+                    </div>
+                `;
+                
+                document.getElementById('outputPlaceholder').classList.add('hidden');
+                const outputDiv = document.getElementById('outputContent');
+                outputDiv.innerHTML = output;
+                outputDiv.classList.remove('hidden');
+                
+                // Reset button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                lucide.createIcons();
+            }, 1500); // Simulate AI delay
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('outputContent').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Copied!`;
+                copyBtn.classList.add('text-green-400');
+                lucide.createIcons();
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove('text-green-400');
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-up');
+                    entry.target.style.opacity = 1;
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.gradient-border, .bg-white').forEach((el) => {
+            el.style.opacity = 0; // Initial state
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
