@@ -7,6 +7,10 @@
 ![B2B](https://img.shields.io/badge/B2B-Enterprise%20SaaS-0A7B83)
 ![Status](https://img.shields.io/badge/status-portfolio--ready-2EA44F)
 
+## Campaign Brief Plug-and-Play Workflow: Five inputs → Campaign strategy → Executive Campaign Brief.
+An ABM/ABX Command Center Built in Claude can generate a fully customized campaign brief using the five-question intake process, using the ABM/ABX Artifact in Claude. The campaign brief covers your target cohorts, buying committee, offers, Sales & Marketing Plays, channel investment, measurement, and launch readiness. It also distinguishes proposed strategies from verified information, which is important for an executive deliverable.
+This is a major milestone for your plug-and-play workflow:
+
 ## Why This Exists
 
 Enterprise ABM often breaks down between account selection, campaign execution, customer/account adoption, and Sales follow-through. This command center gives Marketing and Sales one structured workflow for turning account signals into coordinated, measurable plays.
