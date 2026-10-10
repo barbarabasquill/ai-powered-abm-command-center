@@ -8,7 +8,8 @@
 ![Status](https://img.shields.io/badge/status-portfolio--ready-2EA44F)
 
 ## Campaign Brief Plug-and-Play Workflow: Five inputs → Campaign strategy → Executive Campaign Brief.
-An ABM/ABX Command Center Built in Claude can generate a fully customized campaign brief using the five-question intake process, using the ABM/ABX Artifact in Claude. The campaign brief covers your target cohorts, buying committee, offers, Sales & Marketing Plays, channel investment, measurement, and launch readiness. It also distinguishes proposed strategies from verified information, which is important for an executive deliverable.
+Built is a working ABM/ABX Campaign Brief Generator that takes just five inputs and produces a professional, executive-ready campaign strategy!
+It's a working AI marketing workflow with an interactive intake form, strategic campaign development, standardized leadership deliverables, and published examples. Using Claude, you can generate a fully customized campaign brief using the five-question intake process, via an Artifact in Claude. The campaign brief covers your target cohorts, buying committee, offers, Sales & Marketing Plays, channel investment, measurement, and launch readiness. It also distinguishes proposed strategies from verified information, which is important for an executive deliverable you can be proud of.
 
 ## Why This Exists
 
